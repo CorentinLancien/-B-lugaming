@@ -7,7 +7,7 @@ namespace Belugaming
 
         public int Prix { get; set; }
 
-        public int Name { get; set; }
+        public string Name { get; set; }
         
         public List<Categorie>? Categories { get; set; }
         

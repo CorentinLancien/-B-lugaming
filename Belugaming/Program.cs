@@ -22,6 +22,8 @@ builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"
 builder.Services.AddTransient<CategorieDataService>();
 builder.Services.AddTransient<GameDataService>();
 
+
+
 // JWT & User services
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IUserRepositoryService, UserRepositoryService>();
