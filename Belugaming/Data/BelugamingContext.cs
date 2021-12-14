@@ -44,6 +44,7 @@ namespace Belugaming.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          
             modelBuilder.Entity<Game>(e =>
             {
                 e.HasKey(e => e.Id);

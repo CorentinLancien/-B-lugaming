@@ -1648,11 +1648,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\coren\\Documents\\perso\\projet con\\Belugaming\\Belugaming\\Belugaming.csproj",
+      "projectUniqueName": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
       "projectName": "Belugaming",
-      "projectPath": "C:\\Users\\coren\\Documents\\perso\\projet con\\Belugaming\\Belugaming\\Belugaming.csproj",
+      "projectPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
       "packagesPath": "C:\\Users\\coren\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\coren\\Documents\\perso\\projet con\\Belugaming\\Belugaming\\obj\\",
+      "outputPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\coren\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,4 +1,6 @@
+using Belugaming;
 using Belugaming.Data;
+using Belugaming.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //EntityFramwork & db
-builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"Data Source=.\bin\moviegestionnary.db;"));
+builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"Data Source=.\bin\belugaming.db;"));
+builder.Services.AddTransient<CategorieDataService>();
+builder.Services.AddTransient<GameDataService>();
 
 // JWT & User services
 builder.Services.AddSingleton<ITokenService, TokenService>();
@@ -45,11 +49,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseRouting();
 
 app.MapControllers();
 

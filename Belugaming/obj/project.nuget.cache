@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AdUntrAq5/7tATuQve3GxWV24SIcoeyGSH8OlnDLw/gVz2mtIfgsl9QYo/dRlw5L5s6rNMPUssO2nmcbOK3b3Q==",
+  "dgSpecHash": "7NWPhsO6pxGWWn7DCfiouD3Hb7C913Krbtqffc7t7TZy/ff2z2h3mbPrHMNjaF67MGt7RTrlVhyznhJxUCfaOQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\coren\\Documents\\perso\\projet con\\Belugaming\\Belugaming\\Belugaming.csproj",
+  "projectFilePath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\coren\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\coren\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

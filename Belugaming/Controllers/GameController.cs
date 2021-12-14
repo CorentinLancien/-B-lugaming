@@ -16,7 +16,7 @@ namespace Belugaming.Controllers
         [HttpGet(Name = "Games")]
         public List<Game> Get()
         {
-            
+            return null;
         }
     }
 }
