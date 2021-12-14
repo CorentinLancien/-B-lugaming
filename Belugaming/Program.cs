@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Security;
+using SolrNet;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -118,6 +120,9 @@ if (generateFakeData == true)
     }
 }
 
+//Start the hereku setup
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -135,3 +140,4 @@ app.UseRouting();
 app.MapControllers();
 
 app.Run();
+
