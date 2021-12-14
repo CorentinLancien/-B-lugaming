@@ -1,5 +1,9 @@
+using Belugaming.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Security;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//EntityFramwork & db
+builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"Data Source=.\bin\moviegestionnary.db;"));
 
 // JWT & User services
 builder.Services.AddSingleton<ITokenService, TokenService>();
