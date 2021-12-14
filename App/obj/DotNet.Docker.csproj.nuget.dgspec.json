@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj": {}
+    "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\App\\DotNet.Docker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj": {
+    "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\App\\DotNet.Docker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
-        "projectName": "Belugaming",
-        "projectPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
+        "projectUniqueName": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\App\\DotNet.Docker.csproj",
+        "projectName": "DotNet.Docker",
+        "projectPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\App\\DotNet.Docker.csproj",
         "packagesPath": "C:\\Users\\coren\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\obj\\",
+        "outputPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\coren\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,24 +39,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "SolrNet": {
-              "target": "Package",
-              "version": "[1.0.19, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.2.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -68,9 +50,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
