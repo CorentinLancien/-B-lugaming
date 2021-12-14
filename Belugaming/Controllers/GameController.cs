@@ -1,3 +1,4 @@
+using Belugaming.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Belugaming.Controllers
@@ -6,6 +7,9 @@ namespace Belugaming.Controllers
     [Route("[controller]")]
     public class GameController : ControllerBase
     {
+
+        private GameDataService? GameSrv { get; set; }
+
         private readonly ILogger<GameController> _logger;
 
         public GameController(ILogger<GameController> logger)
@@ -14,9 +18,12 @@ namespace Belugaming.Controllers
         }
 
         [HttpGet(Name = "Games")]
-        public List<Game> Get()
-        {
-            return null;
+        public async Task<List<Game>> Get() {
+            if (GameSrv == null)
+            {
+                throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
+            }
+            return await GameSrv.GetGames();
         }
     }
 }

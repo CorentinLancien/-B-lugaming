@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Belugaming.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Belugaming.Data
 {
@@ -59,6 +60,11 @@ namespace Belugaming.Data
                 e.HasKey(e => e.Id);
 
             });
+        }
+
+        public static implicit operator BelugamingContext(CategorieDataService v)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
