@@ -26,5 +26,15 @@ namespace Belugaming.Controllers
             return await GameSrv.GetGames();
         }
 
+        [HttpGet("/api/games/{categorieId}")]
+        public async Task<List<Game>> Get(int categorieId)
+        {
+            if (GameSrv == null)
+            {
+                throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
+            }
+
+            return await GameSrv.GetGames(categorieId);
+        }
     }
 }
