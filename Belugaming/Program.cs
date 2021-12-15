@@ -71,35 +71,35 @@ if (generateFakeData == true)
 
         Categorie strategieCategory = new Categorie()
         {
-            Name = "Strategie"
+            Name = "strategie"
         };
         Categorie rpgCategory = new Categorie()
         {
-            Name = "RPG"
+            Name = "rpg"
         };
         Categorie fpsCategory = new Categorie()
         {
-            Name = "FPS"
+            Name = "fps"
         };
         Categorie arcadeCategory = new Categorie()
         {
-            Name = "Arcade"
+            Name = "arcade"
         };
         Categorie mmoCategory = new Categorie()
         {
-            Name = "MMO"
+            Name = "mmo"
         };
         Categorie singleplayerCategory = new Categorie()
         {
-            Name = "Singleplayer"
+            Name = "singleplayer"
         };
         Categorie cooperationCategory = new Categorie()
         {
-            Name = "Cooperation"
+            Name = "cooperation"
         };
         Categorie adventureCategory = new Categorie()
         {
-            Name = "Adventure"
+            Name = "adventure"
         };
 
         context.Categories.Add(strategieCategory);
