@@ -1,25 +1,23 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# DOTNET 6 SDK
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+# Répertoire de travail => /app
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["Belugaming/Belugaming.csproj", "Belugaming/"]
-RUN dotnet restore "Belugaming/Belugaming.csproj"
+# Copie du fichier projet et restauration des dépendances (NuGet & packages dotnet)
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copie des autres fichiers, et build de l'application
 COPY . .
-WORKDIR "/src/Belugaming"
-RUN dotnet build "Belugaming.csproj" -c Release -o /app/build
+RUN dotnet publish -c Release -o out
 
-FROM build AS publish
-RUN dotnet publish "Belugaming.csproj" -c Release -o /app/publish
-
-FROM base AS final
+# DOTNET 6 ASPNET
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["Belugaming", "Belugaming.dll"]
+
+# Copie des fichiers compilés vers le répertoire de travail
+COPY --from=build-env /app/out .
+
+# Exécuter l'application sur Heroku (Heroku nous donne un port à utiliser dans la variable $PORT)
+CMD dotnet Belugaming.dll --urls=http://*:$PORT

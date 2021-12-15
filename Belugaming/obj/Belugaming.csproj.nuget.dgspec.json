@@ -48,10 +48,6 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
-            "SolrNet": {
-              "target": "Package",
-              "version": "[1.0.19, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
