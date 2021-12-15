@@ -4,6 +4,7 @@ using Belugaming.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Security;
 using System.Net;
 using System.Text;
@@ -20,13 +21,17 @@ builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.Re
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 //EntityFramwork & db
 builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"Data Source=.\bin\belugaming.db;"));
 builder.Services.AddTransient<CategorieDataService>();
 builder.Services.AddTransient<GameDataService>();
 
 builder.Services.AddCors();
+
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});
 
 // JWT & User services
 builder.Services.AddSingleton<ITokenService, TokenService>();

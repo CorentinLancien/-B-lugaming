@@ -23,18 +23,18 @@ namespace Belugaming.Controllers
             {
                 throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
             }
-            return GameSrv.GetGames();
+            return await GameSrv.GetGames();
         }
 
-        [HttpGet("/api/games/{categorieId}")]
-        public async Task<List<Game>> Get(int categorieId)
+        [HttpGet("/api/games/{categories}")]
+        public async Task<List<Game>> Get(string categories)
         {
             if (GameSrv == null)
             {
                 throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
             }
 
-            return await GameSrv.GetGames(categorieId);
+            return await GameSrv.GetGames(categories);
         }
     }
 }

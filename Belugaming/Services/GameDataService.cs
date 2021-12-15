@@ -1,5 +1,6 @@
 ﻿using Belugaming.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Belugaming.Services
 {
@@ -31,23 +32,37 @@ namespace Belugaming.Services
                 .ToListAsync();
         }
 
-        public async Task<List<Game>> GetGames(int categorieId)
+        public async Task<List<Game>> GetGames(string Categories)
         {
-            List<Game> games = new List<Game>();
-            List<Categorie> categories = await _Context.Categories
-                .Include(i => i.Games)
-                .Where(i => i.Id == categorieId)
-                .ToListAsync();
+            
+            string[] CategoriesArray = Categories.Split('/');
+            List<Game> Games = new List<Game>();
 
-
-            foreach (var categorie in categories)
+            foreach (string Category in CategoriesArray)
             {
-                foreach (var game in categorie.Games)
+                try
                 {
-                    games.Add(game);
+                    Categorie categorie = await _Context.Categories
+                        .Include(i => i.Games)
+                        .Where(i => i.Name == Category)
+                        .FirstOrDefaultAsync();
+
+                    foreach (Game game in categorie.Games)
+                    {
+                        foreach (var childCategorie in game.Categories)
+                        {
+                            childCategorie.Games = new List<Game>();        
+                        }
+                        Games.Add(game);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
-            return games;
+
+            return Games;
         }
         #endregion
 
