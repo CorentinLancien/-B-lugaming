@@ -11,13 +11,9 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 
-builder.Services.AddCors();
-
 builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,16 +35,16 @@ builder.Services.AddSingleton<IUserRepositoryService, UserRepositoryService>();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
-	opt.TokenValidationParameters = new()
-	{
-		ValidateIssuerSigningKey = true,
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-		ValidateLifetime = true,
-		ValidateIssuer = true,
-		ValidIssuer = builder.Configuration["Jwt:Issuer"],
-		ValidateAudience = true,
-		ValidAudience = builder.Configuration["Jwt:Issuer"],
-	};
+    opt.TokenValidationParameters = new()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        ValidateLifetime = true,
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Issuer"],
+    };
 });
 
 
@@ -62,6 +58,7 @@ if (generateFakeData == true)
 
     using (IServiceScope scope = app.Services.CreateScope())
     {
+        int compteur = 0;
         BelugamingContext context = scope.ServiceProvider.GetService<BelugamingContext>() ?? throw new Exception($"Impossible d'initialiser le service {nameof(BelugamingContext)}");
 
         context.Database.EnsureDeleted();
@@ -78,6 +75,26 @@ if (generateFakeData == true)
         Categorie fpsCategory = new Categorie()
         {
             Name = "FPS"
+        };
+        Categorie arcadeCategory = new Categorie()
+        {
+            Name = "Arcade"
+        };
+        Categorie mmoCategory = new Categorie()
+        {
+            Name = "MMO"
+        };
+        Categorie singleplayerCategory = new Categorie()
+        {
+            Name = "Singleplayer"
+        };
+        Categorie cooperationCategory = new Categorie()
+        {
+            Name = "Cooperation"
+        };
+        Categorie adventureCategory = new Categorie()
+        {
+            Name = "Adventure"
         };
 
         context.Categories.Add(strategieCategory);
@@ -98,13 +115,12 @@ if (generateFakeData == true)
                 Game game = new Game()
                 {
                     Date = DateTime.Now.AddDays(rnd.NextDouble() * -1 * rnd.Next(0, 365)),
-                    Prix = Convert.ToInt16(Math.Floor(rnd.NextDouble() * -1 * rnd.Next(0, 80))),
-                    Name = "test",
+                    Prix = Convert.ToInt16(Math.Floor(rnd.NextDouble() * rnd.Next(0, 80))),
+                    Name = getName(compteur),
                 };
+                compteur++;
 
-
-
-                for (int i = 0; i < rnd.Next(0, 3); i++)
+                for (int i = 0; i < rnd.Next(1, 3); i++)
                 {
                     Categorie cat = categories[rnd.Next(0, categories.Length - 1)];
 
@@ -120,13 +136,18 @@ if (generateFakeData == true)
 
         Func<int, List<Game>> generateGamesAsync = (count) => Enumerable.Range(0, count).Select(async i => await generateGameAsync()).Select(t => t.Result).ToList();
 
-        context.Games.AddRange(generateGamesAsync(50));
+        context.Games.AddRange(generateGamesAsync(20));
 
         context.SaveChanges();
     }
 }
 
-//Start the hereku setup
+string getName(int compteur)
+{
+    List<string> names = new List<string>(new string[] { "League of legends", "Mario party", "Mario Galaxy", "Zelda Breath of the Wild", "Donjons & Dragons", "Battlefield 1", "Call of Duty : Black Ops", "Counter Strike", "Pokemon", "Overwatch", "Starcraft 2", "World of Warcraft", "Diablo 2", "Rocket League", "Worms", "Nintendogs", "Escape from Tarkov", "Final Fantasy XI", "Dead Cells", "Tekken 7" });
+
+    return names[compteur];
+}
 
 
 // Configure the HTTP request pipeline.
@@ -134,16 +155,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-	app.UseHsts();
+    app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.UseRouting();
-
 
 app.MapControllers();
 
