@@ -23,7 +23,7 @@ namespace Belugaming.Controllers
             {
                 throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
             }
-            return await GameSrv.GetGames();
+            return GameSrv.GetGames();
         }
 
         [HttpGet("/api/games/{categorieId}")]

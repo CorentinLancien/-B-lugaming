@@ -33,10 +33,21 @@ namespace Belugaming.Services
 
         public async Task<List<Game>> GetGames(int categorieId)
         {
-            return await _Context.Games
-                .Include(i => i.Categories)
-                .Where(Categori == categorieId)
+            List<Game> games = new List<Game>();
+            List<Categorie> categories = await _Context.Categories
+                .Include(i => i.Games)
+                .Where(i => i.Id == categorieId)
                 .ToListAsync();
+
+
+            foreach (var categorie in categories)
+            {
+                foreach (var game in categorie.Games)
+                {
+                    games.Add(game);
+                }
+            }
+            return games;
         }
         #endregion
 

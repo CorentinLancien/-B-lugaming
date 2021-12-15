@@ -26,7 +26,7 @@ builder.Services.AddDbContext<BelugamingContext>(options => options.UseSqlite(@"
 builder.Services.AddTransient<CategorieDataService>();
 builder.Services.AddTransient<GameDataService>();
 
-
+builder.Services.AddCors();
 
 // JWT & User services
 builder.Services.AddSingleton<ITokenService, TokenService>();
@@ -161,6 +161,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+    app.UseCors(
+        options => options.WithOrigins("http://localhost:8080").AllowAnyMethod()
+    );
+
 
 app.UseRouting();
 
