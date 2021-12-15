@@ -8,6 +8,7 @@ namespace Belugaming.Services
     {
         #region Fields
         private readonly BelugamingContext _Context;
+
         #endregion
 
         #region Constructors
@@ -27,41 +28,88 @@ namespace Belugaming.Services
         #region Methods
         public async Task<List<Game>> GetGames()
         {
-            return await _Context.Games
-                .Include(i => i.Categories)
-                .ToListAsync();
-        }
-
-        public async Task<List<Game>> GetGames(string Categories)
-        {
-            
-            string[] CategoriesArray = Categories.Split('/');
             List<Game> Games = new List<Game>();
 
-            foreach (string Category in CategoriesArray)
-            {
-                try
-                {
-                    Categorie categorie = await _Context.Categories
-                        .Include(i => i.Games)
-                        .Where(i => i.Name == Category)
-                        .FirstOrDefaultAsync();
+            var GameQuery = _Context.Games
+                .Include(i => i.Categories);
 
-                    foreach (Game game in categorie.Games)
+            foreach (var game in GameQuery) {
+
+                if(game.Categories != null)
+                {
+                    foreach (var child in game.Categories)
                     {
-                        foreach (var childCategorie in game.Categories)
-                        {
-                            childCategorie.Games = new List<Game>();        
-                        }
-                        Games.Add(game);
+                        child.Games = new List<Game>();
                     }
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+
+                Games.Add(game);
             }
 
+            return Games;
+        }
+
+        public async Task<List<Game>> GetGames(int Prix, string Name, string Categories)
+        {
+            
+            List<Game> Games = new List<Game>();
+
+
+            if (Prix != 0)
+            {
+                var GameQuery = _Context.Games
+                    .Include(i => i.Categories)
+                    .Where(i => i.Prix == Prix);
+
+                foreach (var queryGame in GameQuery)
+                {
+                    Games.Add(queryGame);
+                }
+            }
+            if(Name != "")
+            {
+                var GameQuery = _Context.Games
+                    .Include(i => i.Categories)
+                    .Where(i => i.Name.Contains(Name));
+
+                foreach (var queryGame in GameQuery)
+                {
+                    Games.Add(queryGame);
+                }
+            }
+            if(Categories != "")
+            {
+                string[] CategoriesArray = Categories.Split("/");
+                foreach (string Category in CategoriesArray)
+                {
+                    try
+                    {
+                        Categorie categorie = await _Context.Categories
+                            .Include(i => i.Games)
+                            .Where(i => i.Name == Category)
+                            .FirstOrDefaultAsync();
+
+                        if (categorie != null)
+                        {
+                            foreach (Game game in categorie.Games)
+                            {
+                                foreach (var child in game.Categories)
+                                {
+                                    child.Games = new List<Game>();
+                                }
+                                Games.Add(game);
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                }
+            }
+ 
+            Games = Games.Distinct().ToList();
             return Games;
         }
         #endregion

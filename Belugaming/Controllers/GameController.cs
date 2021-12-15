@@ -26,15 +26,31 @@ namespace Belugaming.Controllers
             return await GameSrv.GetGames();
         }
 
-        [HttpGet("/api/games/{categories}")]
-        public async Task<List<Game>> Get(string categories)
+        [HttpGet("/api/games/params")]
+        public async Task<List<Game>> GetQueryString()
         {
+            int prix = 0;
+            string name = "";
+            string categories = "";
+            if (HttpContext.Request.Query["prix"].ToString() != "")
+            {
+                prix = Int32.Parse(HttpContext.Request.Query["prix"]);
+            }
+            if (HttpContext.Request.Query["name"].ToString() != null)
+            {
+                name = HttpContext.Request.Query["name"].ToString();
+            }
+            if(HttpContext.Request.Query["name"].ToString() != null)
+            {
+               categories = HttpContext.Request.Query["categories"].ToString();
+            }
+
             if (GameSrv == null)
             {
                 throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
             }
 
-            return await GameSrv.GetGames(categories);
+            return await GameSrv.GetGames(prix, name, categories);
         }
     }
 }
