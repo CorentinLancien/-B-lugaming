@@ -105,7 +105,12 @@ if (generateFakeData == true)
         {
                 strategieCategory,
                 rpgCategory,
-                fpsCategory
+                fpsCategory,
+                arcadeCategory,
+                mmoCategory, 
+                singleplayerCategory,
+                cooperationCategory,
+                adventureCategory,
         };
 
         Func<Task<Game>> generateGameAsync = async () =>
