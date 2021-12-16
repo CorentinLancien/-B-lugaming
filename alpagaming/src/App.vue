@@ -1,6 +1,5 @@
 <template>
   <v-app>
-     {{ token }}
     <v-card
       class="mx-auto"
       max-width="300"
@@ -11,7 +10,7 @@
         <v-list-item-group
           v-model="games"
           color="primary"
-        >
+        > 
           <v-list-item
             v-for="game in games"
             :key="game.Id"
@@ -40,33 +39,33 @@ export default {
   async mounted(){
     await this.auth()
     await this.getListGames()
-    console.log(this.games)
   },
 
   methods:{
       async getListGames(){
-        const https = require('https');
-        const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-
-        let url = 'https://localhost:7069/api/games';
-        let rawResult = await axios.get(url, {
-                httpsAgent
-            });
-
-        this.games = rawResult.data.$values
+        let url = 'https://belugaming.herokuapp.com/api/games';
+        let rawResult = await axios({
+                method: 'get',
+                url: url,
+                headers: {
+                  Authorization: `Bearer ` + this.token
+                }, 
+              });
+       this.games = rawResult.data
     },
-        async auth(){
-        const https = require('https');
-        const httpsAgent = new https.Agent({ rejectUnauthorized: false });
-
-        let url = 'https://localhost:7069/api/auth';
-        let rawResult = await axios.post(url, {
-                httpsAgent,
+      async auth(){
+      let url = 'https://belugaming.herokuapp.com/api/auth';
+      let rawResult = await axios({
+              method: 'post',
+              url: url,
+              headers: {}, 
+              data: {
                 username: 'admin',
-                lastName: 'patafoin'
+                password: 'patafoin'
+              }
             });
-
-        this.token = rawResult.data.$values
+      
+      this.token = rawResult.data.token
     }
   }
 
