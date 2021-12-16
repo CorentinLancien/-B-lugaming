@@ -1,26 +1,59 @@
 <template>
   <v-app>
-    <v-card
-      class="mx-auto"
-      max-width="300"
-      tile
-    >
-      <v-list dense>
-        <v-subheader>REPORTS</v-subheader>
-        <v-list-item-group
-          v-model="games"
-          color="primary"
-        > 
-          <v-list-item
-            v-for="game in games"
-            :key="game.Id"
-          >
-            <v-list-item-content>
-              <v-list-item-title v-text="game.name"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    <v-card>
+    <v-container fluid>
+            <v-row
+        align="center"
+      >
+        <v-col cols="5">
+          <v-autocomplete
+            v-model="games"
+            :items="games"
+            dense
+            chips
+            small-chips
+            label="Name"
+            solo
+          ></v-autocomplete>
+        </v-col>
+      </v-row>
+      <v-row
+        align="center"
+      >
+        <v-col cols="12">
+          <v-autocomplete
+            v-model="games"
+            :items="games"
+            dense
+            chips
+            small-chips
+            label="Categories"
+            multiple
+            solo
+          ></v-autocomplete>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
+    <v-card>
+      <v-card-title>
+        Jeux Vidéos
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Rechercher"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="games"
+        :search="search"
+        loading=isLoading
+        loading-text="Loading... Please wait"
+      ></v-data-table>
     </v-card>
   </v-app>
 </template>
@@ -29,9 +62,18 @@
 const axios = require('axios');
 export default {
   name: 'App',
-
-
   data: () => ({
+    search: '',
+    headers: [
+      {
+        text: 'Nom',
+        align: 'start',
+        sortable: true,
+        value: 'name',
+      },
+      { text: 'Date', value: 'date' },
+      { text: 'Prix TTC', value: 'prix' },
+    ],
     games : [],
     token : "",
   }),
@@ -53,7 +95,7 @@ export default {
               });
        this.games = rawResult.data
     },
-      async auth(){
+    async auth(){
       let url = 'https://belugaming.herokuapp.com/api/auth';
       let rawResult = await axios({
               method: 'post',
@@ -66,7 +108,7 @@ export default {
             });
       
       this.token = rawResult.data.token
-    }
+    },
   }
 
 };
