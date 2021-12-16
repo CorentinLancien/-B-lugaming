@@ -95,7 +95,7 @@ if (generateFakeData == true)
         };
         Categorie adventureCategory = new Categorie()
         {
-            Name = "adventure"
+            Name = "aventure"
         };
 
         context.Categories.Add(strategieCategory);
