@@ -32,6 +32,8 @@ namespace Belugaming.Controllers
             int prix = 0;
             string name = "";
             string categories = "";
+            string year = "";
+
             if (HttpContext.Request.Query["prix"].ToString() != "")
             {
                 prix = Int32.Parse(HttpContext.Request.Query["prix"]);
@@ -44,13 +46,17 @@ namespace Belugaming.Controllers
             {
                categories = HttpContext.Request.Query["categories"].ToString();
             }
+            if(HttpContext.Request.Query["year"].ToString() != null)
+            {
+                year = HttpContext.Request.Query["year"].ToString();
+            }
 
             if (GameSrv == null)
             {
                 throw new Exception($"Le service {nameof(GameSrv)} n'est pas initialisé.");
             }
 
-            return await GameSrv.GetGames(prix, name, categories);
+            return await GameSrv.GetGames(year, prix, name, categories);
         }
     }
 }

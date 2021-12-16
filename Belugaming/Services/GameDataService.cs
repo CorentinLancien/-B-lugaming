@@ -1,6 +1,7 @@
 ﻿using Belugaming.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Belugaming.Services
 {
@@ -8,6 +9,8 @@ namespace Belugaming.Services
     {
         #region Fields
         private readonly BelugamingContext _Context;
+
+        private List<Game> Games = new List<Game>();
 
         #endregion
 
@@ -28,66 +31,30 @@ namespace Belugaming.Services
         #region Methods
         public async Task<List<Game>> GetGames()
         {
-            List<Game> Games = new List<Game>();
 
-            var GameQuery = _Context.Games
-                .Include(i => i.Categories);
-
-            foreach (var game in GameQuery) {
-
-                if(game.Categories != null)
-                {
-                    foreach (var child in game.Categories)
-                    {
-                        child.Games = new List<Game>();
-                    }
-                }
-
-                Games.Add(game);
-            }
+            Games =  await _Context.Games
+                .AsNoTracking()
+                .Include(i => i.Categories).ToListAsync();
 
             return Games;
         }
 
-        public async Task<List<Game>> GetGames(int Prix, string Name, string Categories)
+        public async Task<List<Game>> GetGames(string year, int Prix, string Name, string Categories)
         {
-            
-            List<Game> Games = new List<Game>();
+            GetGames();
 
-
-            if (Prix != 0)
+            if (Categories != "")
             {
-                var GameQuery = _Context.Games
-                    .Include(i => i.Categories)
-                    .Where(i => i.Prix == Prix);
-
-                foreach (var queryGame in GameQuery)
-                {
-                    Games.Add(queryGame);
-                }
-            }
-            if(Name != "")
-            {
-                var GameQuery = _Context.Games
-                    .Include(i => i.Categories)
-                    .Where(i => i.Name.Contains(Name));
-
-                foreach (var queryGame in GameQuery)
-                {
-                    Games.Add(queryGame);
-                }
-            }
-            if(Categories != "")
-            {
+                List<Game> GameTemp = new List<Game>();
                 string[] CategoriesArray = Categories.Split("/");
                 foreach (string Category in CategoriesArray)
                 {
                     try
                     {
-                        Categorie categorie = await _Context.Categories
+                        Categorie categorie =  _Context.Categories
                             .Include(i => i.Games)
-                            .Where(i => i.Name == Category)
-                            .FirstOrDefaultAsync();
+                            .Where(i => i.Name.ToLower().Contains(Category.ToLower()))
+                            .FirstOrDefault();
 
                         if (categorie != null)
                         {
@@ -97,7 +64,7 @@ namespace Belugaming.Services
                                 {
                                     child.Games = new List<Game>();
                                 }
-                                Games.Add(game);
+                                GameTemp.Add(game);
                             }
                         }
 
@@ -107,6 +74,53 @@ namespace Belugaming.Services
                         Console.WriteLine(ex);
                     }
                 }
+                Games = GameTemp;
+            }
+
+            if (year != "")
+            {
+                try
+                {
+                    List<Game> gamesTemps = new List<Game>();
+                    DateTime Year = new DateTime(Convert.ToInt32(year), 1, 1);
+                    var gameQuery = Games
+                    .Where(i => i.Date.Year == Year.Year);
+
+                    foreach (var queryGame in gameQuery)
+                    {
+                        foreach (var child in queryGame.Categories)
+                        {
+                            child.Games = new List<Game>();
+                        }
+                        gamesTemps.Add(queryGame);
+                    }
+                    Games = gamesTemps;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+
+            if (Prix != 0)
+            {
+                List<Game> GameQuery = Games
+                    .Where(i => i.Prix != Prix)
+                    .ToList();
+
+                foreach (Game queryGame in GameQuery)
+                {
+                    Games.Remove(queryGame);
+                }
+            }
+            if(Name != "")
+            {
+                List<Game> GameQuery = Games
+                   .Where(i => i.Name.ToLower().Contains(Name.ToLower()))
+                   .ToList();
+
+                Games = GameQuery;
             }
  
             Games = Games.Distinct().ToList();
