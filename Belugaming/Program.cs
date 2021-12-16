@@ -119,7 +119,7 @@ if (generateFakeData == true)
             {
                 Game game = new Game()
                 {
-                    Date = DateTime.Now.AddDays(rnd.NextDouble() * -1 * rnd.Next(0, 365)),
+                    Date = DateTime.Now.AddMonths(-1 * rnd.Next(0, 120)),
                     Prix = Convert.ToInt16(Math.Floor(rnd.NextDouble() * rnd.Next(0, 80))),
                     Name = getName(compteur),
                 };
