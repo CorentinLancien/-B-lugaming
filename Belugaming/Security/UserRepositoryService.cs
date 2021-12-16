@@ -4,8 +4,8 @@ public class UserRepositoryService : IUserRepositoryService
 {
 	private List<UserModel> _users => new()
 	{
-		new("admin", "admin"),
-		new("client", "client")
+		new("admin", "patafoin"),
+		new("client", "nocsorg")
 	};
 	
 	public UserModel GetUser(UserModel userModel)

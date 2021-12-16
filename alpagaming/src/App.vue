@@ -1,5 +1,6 @@
 <template>
   <v-app>
+     {{ token }}
     <v-card
       class="mx-auto"
       max-width="300"
@@ -32,10 +33,12 @@ export default {
 
 
   data: () => ({
-    games : []
+    games : [],
+    token : "",
   }),
 
   async mounted(){
+    await this.auth()
     await this.getListGames()
     console.log(this.games)
   },
@@ -50,7 +53,20 @@ export default {
                 httpsAgent
             });
 
-        this.games = rawResult.data.$values;
+        this.games = rawResult.data.$values
+    },
+        async auth(){
+        const https = require('https');
+        const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+
+        let url = 'https://localhost:7069/api/auth';
+        let rawResult = await axios.post(url, {
+                httpsAgent,
+                username: 'admin',
+                lastName: 'patafoin'
+            });
+
+        this.token = rawResult.data.$values
     }
   }
 

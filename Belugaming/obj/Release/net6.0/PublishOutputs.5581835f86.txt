@@ -1,4 +1,5 @@
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Belugaming.exe
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\out\web.config
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\web.config
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\web.config
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\appsettings.Development.json
@@ -11,11 +12,17 @@ C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\appsetting
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\appsettings.json
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\Belugaming.deps.json
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\Belugaming.runtimeconfig.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\out\appsettings.Development.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\out\appsettings.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\out\Belugaming.deps.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\out\out\out\Belugaming.runtimeconfig.json
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Belugaming.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Belugaming.deps.json
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Belugaming.runtimeconfig.json
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Belugaming.pdb
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.Data.Sqlite.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.EntityFrameworkCore.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -28,6 +35,8 @@ C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.Identity
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.IdentityModel.Tokens.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Microsoft.OpenApi.dll
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Newtonsoft.Json.dll
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\Newtonsoft.Json.Bson.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\SQLitePCLRaw.batteries_v2.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\SQLitePCLRaw.core.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\out\SQLitePCLRaw.provider.e_sqlite3.dll
