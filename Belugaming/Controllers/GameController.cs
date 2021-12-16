@@ -1,9 +1,11 @@
 using Belugaming.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Belugaming.Controllers
 {
     [ApiController]
+    [Authorize]
     public class GameController : ControllerBase
     {
 
@@ -57,6 +59,12 @@ namespace Belugaming.Controllers
             }
 
             return await GameSrv.GetGames(year, prix, name, categories);
+        }
+
+        [HttpGet("/api/game/save/{id}")]
+        public async void saveGame(int id)
+        {
+            GameSrv.saveGame(id);
         }
     }
 }

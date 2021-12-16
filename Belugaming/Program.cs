@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Security;
-using System.Net;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -168,16 +166,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
-    app.UseCors(
+app.UseCors(
         options => options.WithOrigins("http://localhost:8080").AllowAnyMethod()
     );
-
-
-app.UseRouting();
-
-app.MapControllers();
 
 app.Run();
 

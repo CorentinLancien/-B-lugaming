@@ -126,6 +126,22 @@ namespace Belugaming.Services
             Games = Games.Distinct().ToList();
             return Games;
         }
+
+        public void saveGame(int id)
+        {
+            try
+            {
+                Game game = _Context.Games
+                    .Where(i => i.Id == id)
+                    .FirstOrDefault();
+                game.isCommander = true;
+                _Context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
         #endregion
 
     }

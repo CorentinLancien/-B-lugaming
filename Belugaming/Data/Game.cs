@@ -11,6 +11,8 @@ namespace Belugaming
 
         public string Name { get; set; }
 
+        public bool isCommander { get; set; } = false;
+
         public List<Categorie>? Categories { get; set; } = new List<Categorie>();
 
     }
