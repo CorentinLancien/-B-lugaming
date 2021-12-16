@@ -1,40 +1,62 @@
 <template>
   <v-app>
     <v-card>
-    <v-container fluid>
-            <v-row
-        align="center"
-      >
-        <v-col cols="5">
-          <v-autocomplete
-            v-model="games"
-            :items="games"
-            dense
-            chips
-            small-chips
-            label="Name"
-            solo
-          ></v-autocomplete>
-        </v-col>
-      </v-row>
-      <v-row
-        align="center"
-      >
-        <v-col cols="12">
-          <v-autocomplete
-            v-model="games"
-            :items="games"
-            dense
-            chips
-            small-chips
-            label="Categories"
-            multiple
-            solo
-          ></v-autocomplete>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+      <v-container fluid>
+        <v-row align="center">
+          <v-col cols="5">
+            <v-autocomplete
+              v-model="games"
+              :items="games"
+              dense
+              chips
+              small-chips
+              label="Name"
+              solo
+            ></v-autocomplete>
+          </v-col>
+          <v-col cols="5">
+            <v-text-field
+              v-model="numberValue"
+              dense
+              chips
+              small-chips
+              solo
+              min="2010"
+              max="2022"
+              type="number"
+              label="Année"
+            />
+          </v-col>
+        </v-row>
+        <v-row align="center">
+          <v-col cols="5">
+            <v-autocomplete
+              v-model="games"
+              :items="games"
+              dense
+              chips
+              small-chips
+              label="Categories"
+              multiple
+              solo
+            ></v-autocomplete>
+          </v-col>
+          <v-col cols="5">
+            <v-text-field
+              v-model="numberValue"
+              dense
+              chips
+              small-chips
+              solo
+              min="0"
+              max="150"
+              type="number"
+              label="Prix"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
     <v-card>
       <v-card-title>
         Jeux Vidéos
