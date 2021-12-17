@@ -2,57 +2,73 @@
   <v-app>
     <v-card>
       <v-container fluid>
-        <v-row align="center">
-          <v-col cols="5">
-            <v-autocomplete
-              v-model="games"
-              :items="games"
-              dense
-              chips
-              small-chips
-              label="Name"
-              solo
-            ></v-autocomplete>
+        <v-row>
+          <v-col cols="10">
+            <v-row align="center">
+              <v-col cols="5">
+                <v-autocomplete
+                  v-model="selectedName"
+                  :items="games"
+                  item-value="name"
+                  item-text="name"
+                  dense
+                  chips
+                  small-chips
+                  label="Name"
+                  solo
+                ></v-autocomplete>
+              </v-col>
+              <v-col cols="5">
+                <v-text-field
+                  v-model="selectedYear"
+                  dense
+                  chips
+                  small-chips
+                  solo
+                  min="2010"
+                  max="2022"
+                  type="number"
+                  label="Année"
+                />
+              </v-col>
+            </v-row>
+            <v-row align="center">
+              <v-col cols="5">
+                <v-autocomplete
+                  v-model="selectedCategories"
+                  :items="games"
+                  item-value="categories.Name"
+                  item-text="categories.Name"
+                  dense
+                  chips
+                  small-chips
+                  label="Categories"
+                  multiple
+                  solo
+                ></v-autocomplete>
+              </v-col>
+              <v-col cols="5">
+                <v-text-field
+                  v-model="selectedPrix"
+                  dense
+                  chips
+                  small-chips
+                  solo
+                  min="0"
+                  max="150"
+                  type="number"
+                  label="Prix"
+                />
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col cols="5">
-            <v-text-field
-              v-model="numberValue"
-              dense
-              chips
-              small-chips
-              solo
-              min="2010"
-              max="2022"
-              type="number"
-              label="Année"
-            />
-          </v-col>
-        </v-row>
-        <v-row align="center">
-          <v-col cols="5">
-            <v-autocomplete
-              v-model="games"
-              :items="games"
-              dense
-              chips
-              small-chips
-              label="Categories"
-              multiple
-              solo
-            ></v-autocomplete>
-          </v-col>
-          <v-col cols="5">
-            <v-text-field
-              v-model="numberValue"
-              dense
-              chips
-              small-chips
-              solo
-              min="0"
-              max="150"
-              type="number"
-              label="Prix"
-            />
+          <v-col cols="2" align="center">
+            <v-btn
+              color="primary"
+              elevation="3"
+              outlined
+              @click="this.showSelected()"
+            >Rechercher</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -75,7 +91,18 @@
         :search="search"
         loading=isLoading
         loading-text="Loading... Please wait"
-      ></v-data-table>
+      >
+        <template v-slot:item.categories="{ items }">
+            <v-chip
+              v-for="item in items"
+              :key="item.Id"
+              :color="blue"
+              dark
+            >
+              {{  }}
+            </v-chip>
+        </template>
+      </v-data-table>
     </v-card>
   </v-app>
 </template>
@@ -95,14 +122,20 @@ export default {
       },
       { text: 'Date', value: 'date' },
       { text: 'Prix TTC', value: 'prix' },
+      { text: 'Categories', value: 'categories' },
     ],
     games : [],
     token : "",
+    selectedName : "",
+    selectedYear : "[]",
+    selectedCategories : [],
+    selectedPrix : "",
   }),
 
   async mounted(){
     await this.auth()
     await this.getListGames()
+    console.log(this.games)
   },
 
   methods:{
@@ -131,6 +164,9 @@ export default {
       
       this.token = rawResult.data.token
     },
+    showSelected(){
+      console.log(this.selectedName + "  " + this.selectedYear + "  " + this.selectedCategories + "  " + this.selectedPrix);
+    }
   }
 
 };

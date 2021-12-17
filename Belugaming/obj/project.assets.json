@@ -1938,19 +1938,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\coren\\.nuget\\packages\\": {}
+    "C:\\Users\\erwan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
+      "projectUniqueName": "C:\\Users\\erwan\\Source\\Repos\\-B-lugaming\\Belugaming\\Belugaming.csproj",
       "projectName": "Belugaming",
-      "projectPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\Belugaming.csproj",
-      "packagesPath": "C:\\Users\\coren\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\coren\\Documents\\cours\\.NET\\Belugaming\\Belugaming\\obj\\",
+      "projectPath": "C:\\Users\\erwan\\Source\\Repos\\-B-lugaming\\Belugaming\\Belugaming.csproj",
+      "packagesPath": "C:\\Users\\erwan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\erwan\\Source\\Repos\\-B-lugaming\\Belugaming\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\coren\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\erwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

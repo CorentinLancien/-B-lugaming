@@ -1,0 +1,9 @@
+
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+*.[Cc]ache
+!?*.[Cc]ache/

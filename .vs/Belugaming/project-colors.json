@@ -5,7 +5,27 @@
       "ProjectGuid": "f309d92c-2aad-473b-966a-df1f5db28132",
       "DisplayName": "Belugaming",
       "ColorIndex": 0
+    },
+    "ef24e8d8-3c69-4018-a76a-8f2c61a88e1f": {
+      "ProjectGuid": "ef24e8d8-3c69-4018-a76a-8f2c61a88e1f",
+      "DisplayName": "Alpagaming",
+      "ColorIndex": 1
+    },
+    "82eb243c-dba2-450e-8f2b-bd478e13c15a": {
+      "ProjectGuid": "82eb243c-dba2-450e-8f2b-bd478e13c15a",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 2
+    },
+    "f0e202e9-fbde-4749-8aaf-d6d47f817467": {
+      "ProjectGuid": "f0e202e9-fbde-4749-8aaf-d6d47f817467",
+      "DisplayName": "Alpagaming",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Fichiers divers",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 4
 }
