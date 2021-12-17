@@ -15,10 +15,11 @@ namespace Belugaming.Controllers
 
         private readonly ILogger<GameController> _logger;
 
-        public GameController(ILogger<GameController> logger, GameDataService gameSrv)
+        public GameController(ILogger<GameController> logger, GameDataService gameSrv, CategorieDataService CategorieSrv)
         {
             _logger = logger;
             this.GameSrv = gameSrv;
+            this.CategorieSrv = CategorieSrv;
         }
 
         [HttpGet("/api/games")]
@@ -69,7 +70,7 @@ namespace Belugaming.Controllers
             GameSrv.saveGame(id);
         }
 
-        [HttpGet("/api/categories}")]
+        [HttpGet("/api/categories")]
         public async Task<List<Categorie>> GetCategories()
         {
             if (CategorieSrv == null)

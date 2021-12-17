@@ -1,30 +1,129 @@
 <template>
   <v-app>
-    <v-card
-      class="mx-auto"
-      max-width="300"
-      tile
-    >
-      <v-list dense>
-        <v-subheader>REPORTS</v-subheader>
-        <v-list-item-group
-          v-model="games"
-          color="primary"
-        > 
-          <v-list-item
-            v-for="game in games"
-            :key="game.Id"
-          >
-            <v-list-item-content>
-              <v-list-item-title v-text="game.name"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    {{games}}
+    <v-card>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="10">
+            <v-row align="center">
+              <v-col cols="5">
+                <v-autocomplete
+                  v-model="selectedName"
+                  :items="games"
+                  item-value="name"
+                  item-text="name"
+                  dense
+                  chips
+                  small-chips
+                  label="Name"
+                  solo
+                ></v-autocomplete>
+              </v-col>
+              <v-col cols="5">
+                <v-text-field
+                  v-model="selectedYear"
+                  dense
+                  chips
+                  small-chips
+                  solo
+                  min="2010"
+                  max="2022"
+                  type="number"
+                  label="Année"
+                />
+              </v-col>
+            </v-row>
+            <v-row align="center">
+              <v-col cols="5">
+                <v-autocomplete
+                  v-model="selectedCategories"
+                  :items="categories"
+                  item-value="categories.id"
+                  item-text="name"
+                  dense
+                  chips
+                  small-chips
+                  label="Categories"
+                  multiple
+                  solo
+                ></v-autocomplete>
+              </v-col>
+              <v-col cols="5">
+                <v-text-field
+                  v-model="selectedPrix"
+                  dense
+                  chips
+                  small-chips
+                  solo
+                  min="0"
+                  max="150"
+                  type="number"
+                  label="Prix"
+                />
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="2" align="center">
+            <v-btn
+              color="primary"
+              elevation="3"
+              outlined
+            >Rechercher</v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
+    <v-card>
+      <v-card-title>
+        Jeux Vidéos
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Rechercher"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="games"
+        :search="search"
+        loading=isLoading
+        loading-text="Loading... Please wait"
+      >
+        <template
+        v-slot:item="{ item }">
+          <tr style="text-align:left;">
+            <td>
+              <span>{{item.name}}</span>
+            </td>
+            <td>
+              <span v-if="item.date != null">{{item.date}}</span>
+              <span v-if="item.releaseDate != null">{{item.releaseDate}}</span>
+            </td>
+            <td>
+              <span v-if="item.prix != null">{{item.prix}}</span>
+              <span v-if="item.price != null">{{item.price}}</span>
+            </td>
+            <span v-if="item.categories != null">
+              <span v-for="categorie in item.categories" :key="categorie.id">
+                <td>
+                  <v-chip color="blue" dark v-if="item.categories.$values == null">
+                    {{categorie.name}}
+                    </v-chip>
+                  <v-chip color="blue" dark v-else>
+                    ???
+                    </v-chip>                    
+                </td>
+              </span>
+            </span>         
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
   </v-app>
 </template>
-
 <script>
 const axios = require('axios');
 export default {
@@ -32,7 +131,24 @@ export default {
 
 
   data: () => ({
+    search: '',
     games : [],
+    categories: [],
+    selectedName : "",
+    selectedYear : "",
+    selectedCategories : [],
+    selectedPrix : "",
+    headers: [
+      {
+        text: 'Nom',
+        align: 'start',
+        sortable: true,
+        value: 'name',
+      },
+      { text: 'Date', value: 'date' },
+      { text: 'Prix TTC', value: 'prix' },
+      { text: 'Categories', value: 'categories' },
+    ],
     apis: [
       { 
         name: 'beluga',
@@ -61,6 +177,7 @@ export default {
   async mounted(){
     await this.initApisUrl()
     await this.getListGames()
+    await this.getListCategories()
   },
 
   methods:{
@@ -109,58 +226,83 @@ export default {
           }           
         });
     },
-      async auth(){
-        for (let api of this.apis) {
+    async getListCategories(){
+        await this.initApisUrl()
+        this.apis.forEach(async api => {
           switch(api.name){
-            case 'beluga':
-              api.url+= "auth"
-              api.token = "Bearer "
-              this.dataAuth = {
-                username: "admin",
-                password: "patafoin"
-              }
+            case "beluga":
+              api.url +="categories";
               break;
-            case 'bigot':
-              api.url+= "users/login"
-              this.dataAuth = {
-                email: "quentin@live.fr",
-                password: "123456aA"
-              }
-              break; 
-            case 'thikler' :
-              api.token = "Bearer "
-              api.url+= "auth"
-              this.dataAuth = {
-                username: "Klervia",
-                password: "Thibaut"
-              }              
-              break;
-            case 'william' :
-              api.url+= "signIn"
-              this.dataAuth = {
-                email: "cocodu53",
-                password: "erwan"
-              }              
+            case "bigot":
+              api.url +="category/all";
               break;
             default:
-              break;       
+              break;
           }
-
-
           let rawResult = await axios({
-              method: 'post',
-              url: api.url,
-              headers: {}, 
-              data: this.dataAuth
-          });  
-          if(rawResult.data.token != null){
-            api.token += rawResult.data.token 
-          }
-          else{
-            api.token = rawResult.data.accessToken 
-          }
-        }      
+                  method: 'get',
+                  url: api.url,
+                  headers: {
+                    Authorization: api.token
+                  }, 
+            });
+            for(let categorie of  rawResult.data){
+              this.categories.push(categorie)
+            }   
+       });
     },
+    async auth(){
+      for (let api of this.apis) {
+        switch(api.name){
+          case 'beluga':
+            api.url+= "auth"
+            api.token = "Bearer "
+            this.dataAuth = {
+              username: "admin",
+              password: "patafoin"
+            }
+            break;
+          case 'bigot':
+            api.url+= "users/login"
+            this.dataAuth = {
+              email: "quentin@live.fr",
+              password: "123456aA"
+            }
+            break; 
+          case 'thikler' :
+            api.token = "Bearer "
+            api.url+= "auth"
+            this.dataAuth = {
+              username: "Klervia",
+              password: "Thibaut"
+            }              
+            break;
+          case 'william' :
+            api.url+= "signIn"
+            this.dataAuth = {
+              email: "cocodu53",
+              password: "erwan"
+            }              
+            break;
+          default:
+            break;       
+        }
+
+
+        let rawResult = await axios({
+            method: 'post',
+            url: api.url,
+            headers: {}, 
+            data: this.dataAuth
+        });  
+        if(rawResult.data.token != null){
+          api.token += rawResult.data.token 
+        }
+        else{
+          api.token = rawResult.data.accessToken 
+        }
+      }      
+  },
 
     async initApisUrl(){
       this.apis.forEach(api => {
