@@ -33,41 +33,156 @@ export default {
 
   data: () => ({
     games : [],
-    token : "",
+    apis: [
+      { 
+        name: 'beluga',
+        url: '',
+        token: ""
+      },
+      { 
+        name: 'thikler',
+        url: '',
+        token: ""
+      },
+      { 
+        name: 'bigot',
+        url: '',
+        token: ""
+      },
+      { 
+        name: 'william',
+        url: '',
+        token: ""
+      }          
+    ],
+    dataAuth : {}
   }),
 
   async mounted(){
-    await this.auth()
+    await this.initApisUrl()
     await this.getListGames()
   },
 
   methods:{
       async getListGames(){
-        let url = 'https://belugaming.herokuapp.com/api/games';
-        let rawResult = await axios({
-                method: 'get',
-                url: url,
-                headers: {
-                  Authorization: `Bearer ` + this.token
-                }, 
-              });
-       this.games = rawResult.data
+        await this.auth();
+        await this.initApisUrl()
+        this.apis.forEach(async api => {
+          switch(api.name){
+            case "beluga":
+              api.url +="games";
+              break;
+            case "bigot":
+              api.url +="games";
+              break;
+            case "thikler":
+              api.url += "List/VideoGames/Name"
+              break;
+            case "william":
+              api.url += "games"
+              break;
+            default:
+              break;
+          }
+
+          let rawResult = await axios({
+                  method: 'get',
+                  url: api.url,
+                  headers: {
+                    Authorization: api.token
+                  }, 
+                });
+          if(rawResult.data.$values != null){
+            for(let game of  rawResult.data.$values){
+              this.games.push(game)
+            }    
+          }
+          else if(rawResult.data.result != null){
+            for(let game of  rawResult.data.result){
+              this.games.push(game)
+            }    
+          }
+          else{
+            for(let game of  rawResult.data){
+              this.games.push(game)
+            }    
+          }           
+        });
     },
       async auth(){
-      let url = 'https://belugaming.herokuapp.com/api/auth';
-      let rawResult = await axios({
-              method: 'post',
-              url: url,
-              headers: {}, 
-              data: {
-                username: 'admin',
-                password: 'patafoin'
+        for (let api of this.apis) {
+          switch(api.name){
+            case 'beluga':
+              api.url+= "auth"
+              api.token = "Bearer "
+              this.dataAuth = {
+                username: "admin",
+                password: "patafoin"
               }
-            });
-      
-      this.token = rawResult.data.token
+              break;
+            case 'bigot':
+              api.url+= "users/login"
+              this.dataAuth = {
+                email: "quentin@live.fr",
+                password: "123456aA"
+              }
+              break; 
+            case 'thikler' :
+              api.token = "Bearer "
+              api.url+= "auth"
+              this.dataAuth = {
+                username: "Klervia",
+                password: "Thibaut"
+              }              
+              break;
+            case 'william' :
+              api.url+= "signIn"
+              this.dataAuth = {
+                email: "cocodu53",
+                password: "erwan"
+              }              
+              break;
+            default:
+              break;       
+          }
+
+
+          let rawResult = await axios({
+              method: 'post',
+              url: api.url,
+              headers: {}, 
+              data: this.dataAuth
+          });  
+          if(rawResult.data.token != null){
+            api.token += rawResult.data.token 
+          }
+          else{
+            api.token = rawResult.data.accessToken 
+          }
+        }      
+    },
+
+    async initApisUrl(){
+      this.apis.forEach(api => {
+        switch(api.name){
+          case "beluga":
+            api.url = "https://belugaming.herokuapp.com/api/"
+            break;
+          case "bigot":
+            api.url = "https://bigogaming.herokuapp.com/"; 
+            break;
+          case "thikler":
+            api.url = "https://thikler.herokuapp.com/api/"
+            break;
+          case "william":
+            api.url = "https://bibliojvapi.herokuapp.com/api/"
+            break;
+          default:
+            break;
+        }
+    });
     }
   }
-
 };
 </script>
+

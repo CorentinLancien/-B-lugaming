@@ -102,7 +102,6 @@ namespace Belugaming.Services
                 }
 
             }
-
             if (Prix != 0)
             {
                 List<Game> GameQuery = Games
@@ -138,7 +137,7 @@ namespace Belugaming.Services
                 _Context.SaveChanges();
             }
             catch (Exception ex)
-            {
+            {   
                 Console.WriteLine(ex);
             }
         }

@@ -167,3 +167,8 @@ C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\Micro
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\out\out\out\out\web.config
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\out\out\out\out\appsettings.Development.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\out\out\out\out\appsettings.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\out\out\out\out\Belugaming.deps.json
+C:\Users\coren\Documents\cours\.NET\Belugaming\Belugaming\bin\Debug\net6.0\out\out\out\out\Belugaming.runtimeconfig.json

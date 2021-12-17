@@ -11,6 +11,8 @@ namespace Belugaming.Controllers
 
         private GameDataService? GameSrv { get; set; }
 
+        private CategorieDataService? CategorieSrv { get; set;}
+
         private readonly ILogger<GameController> _logger;
 
         public GameController(ILogger<GameController> logger, GameDataService gameSrv)
@@ -65,6 +67,17 @@ namespace Belugaming.Controllers
         public async void saveGame(int id)
         {
             GameSrv.saveGame(id);
+        }
+
+        [HttpGet("/api/categories}")]
+        public async Task<List<Categorie>> GetCategories()
+        {
+            if (CategorieSrv == null)
+            {
+                throw new Exception($"Le service {nameof(CategorieSrv)} n'est pas initialisé.");
+            }
+
+            return await CategorieSrv.GetCategories();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Belugaming.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Belugaming.Services
 {
@@ -20,6 +21,13 @@ namespace Belugaming.Services
             _Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<List<Categorie>> GetCategories()
+        {
+
+            return await _Context.Categories
+                .AsNoTracking()
+                .Include(i => i.Games).ToListAsync();
+        }
         #endregion
 
     }
